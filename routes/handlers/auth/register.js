@@ -10,13 +10,13 @@ module.exports = async (req, res) => {
     });
   const password = await bcrypt.hashSync(body.password, 10);
 
-  const validateEmail = await User.findOne({
+  const isEmailUsed = await User.findOne({
     where: {
       email: body.email,
     },
   });
 
-  if (validateEmail)
+  if (isEmailUsed)
     return res.status(400).json({
       message: "email already taken",
     });
