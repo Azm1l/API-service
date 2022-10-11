@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
 
   if (!body.name || !body.email)
     return res.status(400).json({
-      message: "nama dan email harus di isi",
+      message: "name and email must be provided",
     });
 
   const user = await User.create(body);
