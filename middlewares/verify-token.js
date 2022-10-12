@@ -21,14 +21,14 @@ module.exports = async (req, res, next) => {
 
     if (!user)
       return res.status(404).json({
-        message: "user not found",
+        message: "credential not permission",
       });
 
     req.user = user;
 
     next();
   } catch (error) {
-    return res.status(403).json({
+    return res.status(404).json({
       message: "incorrect credential",
     });
   }
