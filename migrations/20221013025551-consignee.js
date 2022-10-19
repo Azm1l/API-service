@@ -3,29 +3,29 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("customer", {
-      customer_id: {
+    await queryInterface.createTable("consignee", {
+      consignee_id: {
         type: Sequelize.STRING,
         primaryKey: true,
         allowNull: false,
       },
-      customer_type: {
+      consignee_type: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      customer_name: {
+      consignee_name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      customer_address: {
-        type: Sequelize.TEXT,
+      consignee_address: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      customer_phone: {
+      consignee_phone: {
         type: Sequelize.INTEGER(15),
         allowNull: false,
       },
-      customer_email: {
+      consignee_email: {
         type: Sequelize.STRING,
         allowNull: true,
       },
@@ -41,6 +41,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("customer");
+    await queryInterface.dropTable("consignee");
   },
 };

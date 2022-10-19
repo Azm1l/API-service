@@ -1,30 +1,32 @@
 module.exports = (sequelize, DataTypes) => {
-  const Customer = sequelize.define(
-    "Customer",
+  const Consignee = sequelize.define(
+    "Consignee",
     {
-      customerId: {
-        type: DataTypes.INTEGER,
+      consigneeId: {
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true,
-        field: "customer_id",
+        field: "consignee_id",
       },
-      customerType: {
+      consigneeType: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: "customer_type",
+        upperCase: true,
+        field: "consignee_type",
       },
-      customerName: {
+      consigneeName: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: "customer_name",
+        upperCase: true,
+        field: "consignee_name",
       },
-      customerAddress: {
+      consigneeAddress: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: "customer_address",
+        uppercase: true,
+        field: "consignee_address",
       },
-      customerPhone: {
+      consigneePhone: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
@@ -33,9 +35,9 @@ module.exports = (sequelize, DataTypes) => {
             msg: "phone number only numeric",
           },
         },
-        field: "customer_phone",
+        field: "consignee_phone",
       },
-      customerEmail: {
+      consigneeEmail: {
         type: DataTypes.STRING,
         allowNull: true,
         validate: {
@@ -44,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "email not valid",
           },
         },
-        field: "customer_email",
+        field: "consignee_email",
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -57,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
         field: "updated_at",
       },
     },
-    { tableName: "customer", timestamps: true }
+    { tableName: "consignee", timestamps: true }
   );
-  return Customer;
+  return Consignee;
 };

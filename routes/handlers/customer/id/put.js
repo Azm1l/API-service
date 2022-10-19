@@ -11,16 +11,20 @@ module.exports = async (req, res) => {
       message: "user not found",
     });
 
-  await customer.update({
-    customerType: body.customerType.toUpperCase(),
-    customerName: body.customerName.toUpperCase(),
-    customerAddress: body.customerAddress.toUpperCase(),
-    customerPhone: body.customerPhone,
-    customerEmail: body.customerEmail,
-  });
+  try {
+    await customer.update({
+      customerType: body.customerType,
+      customerName: body.customerName,
+      customerAddress: body.customerAddress,
+      customerPhone: body.customerPhone,
+      customerEmail: body.customerEmail,
+    });
 
-  return res.json({
-    message: "customer updated",
-    customer,
-  });
+    return res.json(customer);
+  } catch (error) {
+    const message = error.errors.map((e) => e.message).toString();
+    return res.status(400).json({
+      message: message,
+    });
+  }
 };

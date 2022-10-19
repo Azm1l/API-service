@@ -1,8 +1,9 @@
-const { Customer } = require("../../../models");
+const { Customer, sysNumbering } = require("../../../models");
 
 module.exports = async (req, res) => {
   const body = req.body;
 
+  //validate customer
   if (
     !body.customerType ||
     !body.customerName ||
@@ -11,7 +12,7 @@ module.exports = async (req, res) => {
     !body.customerEmail
   )
     return res.status(400).json({
-      message: "data must be provided",
+      message: "data must be provide",
     });
 
   const isNameUsed = await Customer.findOne({
@@ -36,13 +37,40 @@ module.exports = async (req, res) => {
       message: "email already taken",
     });
 
-  const customer = await Customer.create({
-    customerType: body.customerType.toUpperCase(),
-    customerName: body.customerName.toUpperCase(),
-    customerAddress: body.customerAddress,
-    customerPhone: body.customerPhone,
-    customerEmail: body.customerEmail,
-  });
+  //get id customer
+  const codeName = "CUST";
+  const getNumber = await sysNumbering.findByPk(codeName);
+  const data = getNumber.lastNumber + 1;
 
-  return res.json(customer);
+  const newId =
+    getNumber.prefix.substr(
+      0,
+      getNumber.prefix.length - data.toString().length
+    ) + data;
+
+  try {
+    //create customer
+    const customer = await Customer.create({
+      customerId: newId,
+      customerType: body.customerType,
+      customerName: body.customerName,
+      customerAddress: body.customerAddress,
+      customerPhone: body.customerPhone,
+      customerEmail: body.customerEmail,
+    });
+
+    //update number
+    await getNumber.update({
+      lastNumber: data,
+      updatedAt: Date.now(),
+    });
+
+    return res.json(customer);
+  } catch (error) {
+    const message = error.errors.map((e) => e.message).toString();
+
+    return res.status(400).json({
+      message: message,
+    });
+  }
 };
