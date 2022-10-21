@@ -10,10 +10,17 @@ module.exports = async (req, res) => {
       message: "number code is already used",
     });
 
-  const numbering = await sysNumbering.create({
-    numberCode: body.numberCode,
-    prefix: body.prefix,
-    updatedAt: Date.now(),
-  });
-  return res.json(numbering);
+  try {
+    const numbering = await sysNumbering.create({
+      numberCode: body.numberCode,
+      prefix: body.prefix,
+      updatedAt: Date.now(),
+    });
+    return res.json(numbering);
+  } catch (error) {
+    const message = error.errors.map((e) => e.message).toString();
+    return res.status(400).json({
+      message: message,
+    });
+  }
 };

@@ -3,7 +3,7 @@ const { User } = require("../../../../models");
 module.exports = async (req, res) => {
   const { userId } = req.params;
 
-  console.log(req.user);
+  //console.log(req.user); buat cek siapa yang akses API
 
   const user = await User.findByPk(userId, {
     attributes: { exclude: ["password"] },
