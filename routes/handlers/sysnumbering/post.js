@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     });
     return res.json(numbering);
   } catch (error) {
-    const message = error.errors.map((e) => e.message).toString();
+    const message = error.message;
     return res.status(400).json({
       message: message,
     });

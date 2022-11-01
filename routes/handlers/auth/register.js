@@ -32,15 +32,22 @@ module.exports = async (req, res) => {
       message: "email already taken",
     });
 
-  const user = await User.create({
-    name: body.name,
-    email: body.email,
-    password,
-  });
+  try {
+    const user = await User.create({
+      name: body.name,
+      email: body.email,
+      password,
+    });
 
-  return res.json({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-  });
+    return res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: "eror",
+    });
+  }
 };

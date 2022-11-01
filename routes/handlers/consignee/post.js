@@ -55,10 +55,17 @@ module.exports = async (req, res) => {
 
     return res.json(consignee);
   } catch (error) {
-    const message = error.errors.map((e) => e.message).toString();
-
-    return res.status(400).json({
-      message: message,
-    });
+    if (error.name === "SequelizeValidationError") {
+      var message = error.errors
+        .map((validationerror) => validationerror.message)
+        .toString();
+      return res.status(400).json({
+        message: message,
+      });
+    } else {
+      return res.status(400).json({
+        message: error.message,
+      });
+    }
   }
 };
