@@ -9,6 +9,8 @@ var authRouter = require("./routes/auth");
 var customerRouter = require("./routes/customer");
 var consigneeRouter = require("./routes/consignee");
 var sysnumberingRouter = require("./routes/sysnumbering");
+var provinceRouter = require("./routes/province");
+var countryRouter = require("./routes/country");
 
 var app = express();
 
@@ -25,5 +27,7 @@ app.use("/auth", authRouter);
 app.use("/customer", customerRouter);
 app.use("/consignee", consigneeRouter);
 app.use("/sysnumbering", sysnumberingRouter);
+app.use("/province", provinceRouter);
+app.use("/country", countryRouter);
 
 module.exports = app;
