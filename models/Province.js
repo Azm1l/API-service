@@ -18,6 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       countryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          isNumeric: {
+            arg: true,
+            msg: "country id only numeric",
+          },
+        },
         field: "country_id",
       },
       status: {
