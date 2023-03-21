@@ -8,11 +8,9 @@ module.exports = async (req, res) => {
       "CALL InsCountry (:country_name, :status)",
       { replacements: { country_name: body.countryName, status: body.status } }
     );
-    return res.json({
-      success: true,
-      message: "success",
-    });
+    return res.json(data);
   } catch (error) {
+    console.log(error);
     const message = error.errors
       .map((ValidationErrorItem) => ValidationErrorItem.message)
       .toString();
