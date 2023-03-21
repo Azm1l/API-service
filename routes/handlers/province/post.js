@@ -1,4 +1,4 @@
-const { Province } = require("../../../models");
+const { Province, sequelize } = require("../../../models");
 
 module.exports = async (req, res) => {
   const body = req.body;
