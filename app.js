@@ -1,5 +1,6 @@
 var express = require("express");
 var path = require("path");
+var cors = require("cors");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
@@ -13,6 +14,7 @@ var provinceRouter = require("./routes/province");
 var countryRouter = require("./routes/country");
 
 var app = express();
+app.use(cors());
 
 app.use(logger("dev"));
 app.use(express.json());
